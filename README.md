@@ -1,8 +1,8 @@
 <p align="center">
-  <a href="https://v-kurore.com/" target="blank"><img src="https://v-kurore.com/hero.png" width="200" alt="v-kurore.com logo" /></a>
+  <a href="https://v-kurore.com/NestJS/" target="blank"><img src="https://v-kurore.com/hero.png" width="200" alt="v-kurore.com logo" /></a>
 </p>
 
-<p align="center" style="font-size:32px">Kuro Doc</p>
+<p align="center">Kuro Doc / NestJS</p>
 
 ## This repository
 
@@ -14,7 +14,7 @@
 
 ## Databaseをセットアップする
 
-DatabaseにはMySQLを利用しています。Dockerとdocker-composeが利用可能な状態にしておいてください。
+DatabaseにはMySQLを利用しています。Dockerとdocker-composeのセットアップを済ませておいてください。
 
 @see <https://www.docker.com/get-started/>
 
@@ -58,6 +58,8 @@ MySQLのコンテナです。`nestdb`データベースが作成されます。
 |パスワード|example|
 |データベース|nestdb|
 
+[MySQL Workbench](https://www.mysql.com/jp/products/workbench/)などの外部ツールを利用する場合は、サーバの指定を`localhost:3307`にする必要があります。
+
 ## プロジェクトを起動する
 
 ```bash
@@ -85,4 +87,4 @@ $ npm run start:dev
 
 ## License
 
-[MIT licensed](LICENSE)
+MIT License
