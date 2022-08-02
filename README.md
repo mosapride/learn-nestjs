@@ -1,73 +1,88 @@
 <p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
+  <a href="https://v-kurore.com/" target="blank"><img src="https://v-kurore.com/hero.png" width="200" alt="v-kurore.com logo" /></a>
 </p>
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+<p align="center" style="font-size:32px">Kuro Doc</p>
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+## This repository
 
-## Description
+学習用のNestJSプロジェクト。
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+@see <https://v-kurore.com/NestJS/>
 
-## Installation
+他のプロジェクトと使用するポートのバッティングを防ぐため、デフォルトポートを変更しています。
+
+## Databaseをセットアップする
+
+DatabaseにはMySQLを利用しています。Dockerとdocker-composeが利用可能な状態にしておいてください。
+
+@see <https://www.docker.com/get-started/>
+
+### コンテナを起動する
 
 ```bash
-$ npm install
+cd docker
+docker-compose up -d
 ```
 
-## Running the app
+コンテナ名：learn-nestdbとadminerが立ち上がります。
+
+### learn-nestdbコンテナ
+
+MySQLのコンテナです。`nestdb`データベースが作成されます。
+
+|項目|値|
+|---|---|
+|ユーザ名|root|
+|パスワード|example|
+|PORT|3307|
+
+外部から接続するには3307ポートを使用します。ポートを変更する場合はdocker-compose.ymlを変更してください。
+
+```yml
+    ports:
+      - 3307:3306  ## 3307を任意のポートに変更することが可能。
+```
+
+### adminerコンテナ
+
+[adminer](https://www.adminer.org/)はブラウザから操作できるDatabase Management systemです。
+
+ブラウザから<http://localhost:8090>から接続することができます。ログインに必要な情報は初期状態では下記の通りです。
+
+|項目|値|
+|---|---|
+|データベース種別|MySQL|
+|サーバ|learn-nestdb|
+|ユーザ名|root|
+|パスワード|example|
+|データベース|nestdb|
+
+## プロジェクトを起動する
 
 ```bash
-# development
-$ npm run start
+# install
+$ npm i
 
-# watch mode
+# development
 $ npm run start:dev
 
-# production mode
-$ npm run start:prod
 ```
 
-## Test
+### 起動の確認
 
-```bash
-# unit tests
-$ npm run test
+ブラウザから<http://localhost:3000/api>にアクセスし、「Hello World!」が表示されるか確認してください。
 
-# e2e tests
-$ npm run test:e2e
+## データについて
 
-# test coverage
-$ npm run test:cov
-```
+基本的にフリーです。ですが、商業目的、販売などはご遠慮ください。
 
-## Support
+ライセンス、利用規約は「データの作成に利用させていただいたサイト」に準拠します。
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+- [すごい名前生成器](https://namegen.jp/)
+- [ゲーム売上定点観測](https://teitengame.com/index.html)
+- [郵便局](https://www.post.japanpost.jp/zipcode/dl/oogaki-zip.html)
 
 ## License
 
-Nest is [MIT licensed](LICENSE).
+[MIT licensed](LICENSE)
