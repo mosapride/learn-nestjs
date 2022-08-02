@@ -3,6 +3,7 @@
     "dbaeumer.vscode-eslint",
     "esbenp.prettier-vscode",
     "mosapride.zenkaku",
-    "humao.rest-client"
+    "humao.rest-client",
+    "editorconfig.editorconfig"
   ]
 }

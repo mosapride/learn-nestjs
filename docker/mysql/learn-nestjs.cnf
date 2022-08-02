@@ -1,0 +1,14 @@
+## /etc/mysql/conf.d
+## https://dev.mysql.com/doc/refman/8.0/en/server-system-variables.html
+
+[client]
+default-character-set=utf8mb4
+loose-default-character-set=utf8mb4
+
+[mysql]
+default-character-set=utf8mb4
+
+[mysqld]
+character-set-server=utf8mb4
+collation-server=utf8mb4_general_ci
+default-storage-engine=INNODB

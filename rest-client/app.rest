@@ -1,0 +1,32 @@
+### GET
+
+GET http://localhost:3000/api/
+
+
+### User Post
+
+POST http://localhost:3000/user
+content-type: application/json
+
+< ./json/user.json
+
+### User Game
+
+POST http://localhost:3000/game
+content-type: application/json
+
+< ./json/game.json
+
+### User Address
+
+POST http://localhost:3000/address
+content-type: application/json
+
+< ./json/address.json
+
+### User gas-game
+
+POST http://localhost:3000/has-game
+content-type: application/json
+
+< ./json/has_game.json
