@@ -19,7 +19,11 @@ export class HasGameService {
           where: { id: hg.id },
         });
       }
-      await this.hasGameRepository.save({ ...target, ...hg });
+      if (target) {
+        await this.hasGameRepository.update(target, hg);
+      } else {
+        await this.hasGameRepository.save(hg);
+      }
     }
     return { saveRow: hasGameList.length };
   }

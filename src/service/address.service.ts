@@ -19,7 +19,11 @@ export class AddressService {
       const target = await this.addressRepository.findOne({
         where: { zipCode: a.zipCode },
       });
-      await this.addressRepository.save({ ...target, ...a });
+      if (target) {
+        await this.addressRepository.update(target, a);
+      } else {
+        await this.addressRepository.save(a);
+      }
     }
     return { saveRow: addressList.length };
   }

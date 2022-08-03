@@ -16,7 +16,11 @@ export class UserService {
       const target = await this.userRepository.findOne({
         where: { userID: u.userID },
       });
-      await this.userRepository.save({ ...target, ...u });
+      if (target) {
+        await this.userRepository.update(target, u);
+      } else {
+        await this.userRepository.save(u);
+      }
     }
     return { saveRow: userList.length };
   }

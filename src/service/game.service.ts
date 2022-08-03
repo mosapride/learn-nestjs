@@ -16,7 +16,11 @@ export class GameService {
       const target = await this.gameRepository.findOne({
         where: { gameID: g.gameID },
       });
-      await this.gameRepository.save({ ...target, ...g });
+      if (target) {
+        await this.gameRepository.update(target, g);
+      } else {
+        await this.gameRepository.save(g);
+      }
     }
     return { saveRow: gameList.length };
   }
