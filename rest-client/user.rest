@@ -1,0 +1,31 @@
+### 完全固定
+
+GET http://localhost:3000/user
+
+### find + part=address
+
+GET http://localhost:3000/user?part=address
+
+### find + part=address + ,
+
+GET http://localhost:3000/user?part=address,
+
+### find + part=address,game
+
+GET http://localhost:3000/user?part=address,game
+
+### find + part=address,game
+
+GET http://localhost:3000/user?part=address,game&searchKana=ヤマ&maxResults=3
+
+### 半固定(sample1)
+
+GET http://localhost:3000/user/1
+
+### 半固定(sample2)
+
+GET http://localhost:3000/user/2?part=address
+
+### 半固定(sample3)
+
+GET http://localhost:3000/user/3?part=address,game

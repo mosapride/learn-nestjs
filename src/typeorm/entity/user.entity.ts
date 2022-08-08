@@ -1,7 +1,8 @@
 import { UserDto } from 'src/endpoint/dto/user.dto';
-import { Column, Entity, JoinColumn, ManyToOne, OneToOne, PrimaryColumn } from 'typeorm';
+import { Column, Entity, JoinColumn, ManyToOne, OneToMany, OneToOne, PrimaryColumn } from 'typeorm';
 import { CommonDate } from '../mix/data.entity';
 import { AddressEntity } from './address.entity';
+import { HasGameEntity } from './has-game.entity';
 
 @Entity('user')
 export class UserEntity extends CommonDate implements UserDto {
@@ -18,5 +19,8 @@ export class UserEntity extends CommonDate implements UserDto {
 
   @ManyToOne(() => AddressEntity , (address)=> address.users)
   @JoinColumn({ name: 'address_zip_code' , referencedColumnName: 'zipCode' }) // nameはDBのTable名、referencedColumnNameはTypeScriptの変数名
-  address: AddressEntity;
+  address?: AddressEntity;
+
+  @OneToMany(() => HasGameEntity ,(hasGame)=> hasGame.user)
+  hasGames?: HasGameEntity[];
 }

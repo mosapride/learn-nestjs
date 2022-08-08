@@ -1,4 +1,4 @@
-export type CommonDateDto = {
-    readonly createdAt: Date;
-    readonly updatedAt: Date;
+export interface CommonDateDto {
+  readonly createdAt: Date;
+  readonly updatedAt: Date;
 }

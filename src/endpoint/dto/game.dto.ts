@@ -1,4 +1,4 @@
-export type GameDto = {
+export interface GameDto {
   gameID: number;
   name: string;
   sales: number;

@@ -8,6 +8,6 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   await app.listen(LISTEN_PORT);
   const logger = new AppLogger('bootstrap');
-  logger.log(`Listen:: ${await app.getUrl()}`);
+  logger.log(`Application is running on: ${await app.getUrl()}`);
 }
 bootstrap();

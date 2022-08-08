@@ -1,4 +1,4 @@
-export type AddressDto = {
+export interface AddressDto  {
   zipCode: number;
   address: string;
 };
