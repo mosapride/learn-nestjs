@@ -1,4 +1,4 @@
-import { HasGameDto } from 'src/endpoint/dto/has.game.dto';
+import { HasGameDto } from 'src/endpoint/dto/has-game.dto';
 import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { CommonDate } from '../mix/data.entity';
 import { GameEntity } from './game.entity';

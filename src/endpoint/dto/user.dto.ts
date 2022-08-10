@@ -1,5 +1,5 @@
 import { AddressDto } from './address.dto';
-import { HasGameDto } from './has.game.dto';
+import { HasGameDto } from './has-game.dto';
 
 export interface UserDto {
   userID: number;

@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { HasGameDto } from 'src/endpoint/dto/has.game.dto';
-import { ResultSaveDto } from 'src/endpoint/dto/result.save.dto';
+import { HasGameDto } from 'src/endpoint/dto/has-game.dto';
+import { ResultSaveDto } from 'src/endpoint/dto/result-save.dto';
 import { HasGameEntity } from 'src/typeorm/entity/has-game.entity';
 import { Repository } from 'typeorm';
 

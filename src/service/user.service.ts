@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { ResultSaveDto } from 'src/endpoint/dto/result.save.dto';
+import { ResultSaveDto } from 'src/endpoint/dto/result-save.dto';
 import { ERelation, UserDto } from 'src/endpoint/dto/user.dto';
 import { UserEntity } from 'src/typeorm/entity/user.entity';
 import { Repository, SelectQueryBuilder } from 'typeorm';

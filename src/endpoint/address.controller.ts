@@ -1,7 +1,7 @@
 import { Body, Controller, Post } from '@nestjs/common';
 import { AddressService } from 'src/service/address.service';
 import { AddressDto } from './dto/address.dto';
-import { ResultSaveDto } from './dto/result.save.dto';
+import { ResultSaveDto } from './dto/result-save.dto';
 
 @Controller('address')
 export class AddressController {

@@ -1,7 +1,7 @@
 import { Body, Controller, Post } from '@nestjs/common';
 import { GameService } from 'src/service/game.service';
 import { GameDto } from './dto/game.dto';
-import { ResultSaveDto } from './dto/result.save.dto';
+import { ResultSaveDto } from './dto/result-save.dto';
 
 @Controller('game')
 export class GameController {

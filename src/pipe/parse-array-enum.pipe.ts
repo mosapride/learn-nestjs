@@ -22,11 +22,15 @@ export class ParseArrayEnumPipe<T = any> implements PipeTransform<T> {
       throw new HttpErrorByCode[HttpStatus.BAD_REQUEST](`"${metadata.type}" is required.`);
     }
 
-    if (typeof value !== 'string') {
-      throw new HttpErrorByCode[HttpStatus.BAD_REQUEST](`Validation failed (enum string is expected) = [${value.toString()}]`);
+    let valueArray : string[] = []
+    if (typeof value === 'string') {
+      valueArray = value.split(this.options.separator);
+    } else if (Array.isArray(value)) {
+      valueArray = value;
+    } else {
+      throw new HttpErrorByCode[HttpStatus.BAD_REQUEST](`Validation failed (enum string is expected)  / valueType = string or string[]`);
     }
 
-    let valueArray = value.split(this.options.separator);
     valueArray = valueArray.filter((item, i, self) => {
       return self.indexOf(item) === i && item.length > 0;
     });
@@ -36,7 +40,7 @@ export class ParseArrayEnumPipe<T = any> implements PipeTransform<T> {
       }
     }
 
-    return value.split(this.options.separator);
+    return valueArray;
   }
 
   protected isEnum(value: string): boolean {

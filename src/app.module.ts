@@ -4,7 +4,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AddressController } from './endpoint/address.controller';
 import { GameController } from './endpoint/game.controller';
-import { HasGameController } from './endpoint/has.game.controller';
+import { HasGameController } from './endpoint/has-game.controller';
 import { UserController } from './endpoint/user.controller';
 import { AddressService } from './service/address.service';
 import { TypeOrmConfig } from './service/app-config/typeorm-config.service';
