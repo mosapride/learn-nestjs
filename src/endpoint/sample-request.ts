@@ -55,7 +55,7 @@ export class SampleRequestController {
 
   @ApiOperation({
     summary: '数値を取得する(validationあり)',
-    description: `ParseIntPipeを設定し、数値のみを受け付ける。数値以外を送信すると400 Bad Requestを返す。`,
+    description: `ParseIntPipeを設定し、数値のみを受け付ける。数値以外を受け取ると400 Bad Requestを返す。`,
   })
   @Get('param-pattern/number-validation/:id')
   async param2(@Param('id', ParseIntPipe) id: number): Promise<string> {
@@ -72,22 +72,11 @@ export class SampleRequestController {
   }
 
   @ApiOperation({
-    summary: '複数の@Param(:key)の使用方法',
-    description: `特定箇所のendpointの取得2`,
+    summary: '複数のParamパラメータ',
+    description: `@Pramはたぶん、これが一番安定。`,
   })
-  @Get('param-pattern/:key/hoge/:id')
-  async param4(@Param('key') key: string, @Param('id') id: string): Promise<string> {
-    return `key = ${key}, data = ${id}`;
-  }
-
-
-
-  @ApiOperation({
-    summary: 'Paramにvalidationを設定する(数値と文字)',
-    description: `文字の検証は空文字だとURLが成立しないためvalidation自体が存在しない`,
-  })
-  @Get('param-pattern-validate/:id/:data')
-  async param5(@Param('id', ParseIntPipe) id: number, @Param('data') data: string): Promise<string> {
+  @Get('param-pattern-validate/:id/hoge/:data')
+  async param4(@Param('id', ParseIntPipe) id: number, @Param('data') data: string): Promise<string> {
     return `id = ${id}, data = ${data}`;
   }
 }
