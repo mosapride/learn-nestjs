@@ -1,12 +1,12 @@
 import { UserDto } from 'src/endpoint/dto/user.dto';
-import { Column, Entity, JoinColumn, ManyToOne, OneToMany, OneToOne, PrimaryColumn } from 'typeorm';
+import { Column, Entity, JoinColumn, ManyToOne, OneToMany, OneToOne, PrimaryColumn, PrimaryGeneratedColumn } from 'typeorm';
 import { CommonDate } from '../mix/data.entity';
 import { AddressEntity } from './address.entity';
 import { HasGameEntity } from './has-game.entity';
 
 @Entity('user')
 export class UserEntity extends CommonDate implements UserDto {
-  @PrimaryColumn({ name: 'user_id' })
+  @PrimaryGeneratedColumn({ name: 'user_id' })
   userID: number;
   @Column({ name: 'name' })
   name: string;

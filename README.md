@@ -85,6 +85,14 @@ $ npm run start:dev
 - [ゲーム売上定点観測](https://teitengame.com/index.html)
 - [郵便局](https://www.post.japanpost.jp/zipcode/dl/oogaki-zip.html)
 
+## memo
+
+swagger.yml to html command
+
+```bash
+$ npx -p redoc-cli redoc-cli build swagger-spec.yaml
+```
+
 ## License
 
 MIT License

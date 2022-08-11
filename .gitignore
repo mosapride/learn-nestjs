@@ -40,3 +40,6 @@ package-lock.json
 # excel work
 
 ~$*
+
+redoc-static.html
+swagger-spec.yaml

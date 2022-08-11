@@ -5,6 +5,7 @@ import { AppService } from './app.service';
 import { AddressController } from './endpoint/address.controller';
 import { GameController } from './endpoint/game.controller';
 import { HasGameController } from './endpoint/has-game.controller';
+import { SampleRequestController } from './endpoint/sample-request';
 import { UserController } from './endpoint/user.controller';
 import { AddressService } from './service/address.service';
 import { TypeOrmConfig } from './service/app-config/typeorm-config.service';
@@ -23,7 +24,7 @@ import { UserEntity } from './typeorm/entity/user.entity';
     }),
     TypeOrmModule.forFeature([UserEntity, HasGameEntity, GameEntity, AddressEntity]),
   ],
-  controllers: [AppController, UserController, GameController, AddressController, HasGameController],
+  controllers: [AppController, UserController, GameController, AddressController, HasGameController, SampleRequestController],
   providers: [AppService, UserService, GameService, AddressService, HasGameService],
 })
 export class AppModule {}
