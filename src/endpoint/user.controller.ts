@@ -9,13 +9,13 @@ import { ValidationUser } from './dto-validation/user.validation.dto';
 import { ERelation, UserDto } from './dto/user.dto';
 
 class findAllQuery {
-  @ApiProperty({ name: 'page', enum: Object.values(ERelation), type: 'string', isArray: true , required: true })
+  @ApiProperty({ enum: Object.values(ERelation), type: 'string', isArray: true, required: true })
   page: ERelation[];
-  @ApiProperty({ name: 'searchKana', example: 'タナカ' , required: false})
+  @ApiProperty({ example: 'タナカ', required: false })
   @IsOptional()
   @MaxLength(10)
   searchKana: string;
-  @ApiPropertyOptional({ name: 'maxResults', example: 10 , required: false })
+  @ApiPropertyOptional({ example: 10, required: false })
   @IsOptional()
   @Type(() => Number)
   @IsInt()
@@ -60,8 +60,6 @@ export class UserController {
   ): Promise<UserDto[]> {
     return await this.userService.find(part, searchKana, maxResults);
   }
-
-
 
   @Get(':id')
   async findByID(

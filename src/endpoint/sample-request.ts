@@ -12,14 +12,14 @@ enum EPart {
 // https://docs.nestjs.com/openapi/decorators
 
 class ReqUser {
-  @ApiProperty({ name: 'part', enum: Object.values(EPart), type: 'string', isArray: true, required: true })
+  @ApiProperty({ enum: Object.values(EPart), type: 'string', isArray: true, required: true })
   @IsEnum(EPart, { each: true })
   part: EPart[];
-  @ApiProperty({ name: 'searchKana', example: 'タナカ', required: false })
+  @ApiProperty({ example: 'タナカ', required: false })
   @IsOptional()
   @MaxLength(10)
   searchKana: string;
-  @ApiPropertyOptional({ name: 'maxResults', example: 10, required: false })
+  @ApiPropertyOptional({ example: 10, required: false })
   @IsOptional()
   @Type(() => Number)
   @IsInt()
