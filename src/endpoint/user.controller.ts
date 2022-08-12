@@ -9,7 +9,7 @@ import { ValidationUser } from './dto-validation/user.validation.dto';
 import { ERelation, UserDto } from './dto/user.dto';
 
 class findAllQuery {
-  @ApiProperty({ name: 'part', enum: Object.values(ERelation), type: 'string', isArray: true , required: true })
+  @ApiProperty({ name: 'page', enum: Object.values(ERelation), type: 'string', isArray: true , required: true })
   page: ERelation[];
   @ApiProperty({ name: 'searchKana', example: 'タナカ' , required: false})
   @IsOptional()

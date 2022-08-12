@@ -1,10 +1,10 @@
 import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerDocumentOptions, SwaggerModule } from '@nestjs/swagger';
-import { AppModule } from './app.module';
-import { AppLogger } from './util/app-logger';
 import * as fs from 'fs';
 import { dump } from 'js-yaml';
+import { AppModule } from './app.module';
+import { AppLogger } from './util/app-logger';
 
 const LISTEN_PORT = process.env.PORT || 3000;
 
@@ -17,12 +17,14 @@ async function bootstrap() {
       .setDescription('learn nestjs API description')
       .setVersion('1.0')
       .addTag('learn')
+      .setBasePath('path')
+      .addServer('http://localhost:3000')
       .build();
     const options: SwaggerDocumentOptions = {
       operationIdFactory: (_: string, methodKey: string) => methodKey,
     };
     const document = SwaggerModule.createDocument(app, config, options);
-    // fs.writeFileSync('./swagger-spec.yaml', dump(document, {}));
+    fs.writeFileSync('./swagger-spec.yaml', dump(document, {}));
     SwaggerModule.setup('learn', app, document);
     logger.log('---- Debug Mode ---');
   }
