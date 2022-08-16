@@ -1,13 +1,11 @@
-
-
-import { PipeTransform, Injectable, ArgumentMetadata, HttpStatus } from '@nestjs/common';
+import { ArgumentMetadata, HttpStatus, Injectable, PipeTransform } from '@nestjs/common';
 import { HttpErrorByCode } from '@nestjs/common/utils/http-error-by-code.util';
 
 @Injectable()
 export class ParseArrayEnumPipe<T = any> implements PipeTransform<T> {
   constructor(
     protected readonly enumType: T,
-    protected readonly options: { optional: boolean; separator: string } = { optional: true, separator: ',' },
+    protected readonly options: { optional?: boolean; separator?: string } = { optional: true, separator: ',' },
   ) {
     if (!enumType) {
       throw new Error(`"ParseArrayEnumPipe" requires "enumType" argument specified (to validate input values).`);
@@ -15,14 +13,14 @@ export class ParseArrayEnumPipe<T = any> implements PipeTransform<T> {
   }
 
   async transform(value: any, metadata: ArgumentMetadata): Promise<string[]> {
-    if (!value) {
+    if (!value && value !== 0) {
       if (this.options.optional) {
         return [];
       }
-      throw new HttpErrorByCode[HttpStatus.BAD_REQUEST](`"${metadata.type}" is required.`);
+      throw new HttpErrorByCode[HttpStatus.BAD_REQUEST](`[${metadata.data}] is required.`);
     }
 
-    let valueArray : string[] = []
+    let valueArray: string[] = [];
     if (typeof value === 'string') {
       valueArray = value.split(this.options.separator);
     } else if (Array.isArray(value)) {

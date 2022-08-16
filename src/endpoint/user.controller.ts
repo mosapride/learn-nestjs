@@ -1,9 +1,9 @@
-import { Body, Controller, Get, Param, ParseArrayPipe, Post, Query } from '@nestjs/common';
-import { ApiBody, ApiProperty, ApiPropertyOptional, ApiQuery } from '@nestjs/swagger';
+import { Body, Controller, Get, Param, ParseArrayPipe, ParseIntPipe, Post, Query } from '@nestjs/common';
+import { ApiBody, ApiProperty, ApiPropertyOptional, ApiQuery, ApiTags } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
 import { IsInt, IsOptional, Max, MaxLength, Min } from 'class-validator';
 import { ParseArrayEnumPipe } from 'src/pipe/parse-array-enum.pipe';
-import { ParseIntBetweenPipe } from 'src/pipe/parse-int-between.pipe';
+import { ParseBetweenNumberPipe } from 'src/pipe/parse-between-number.pipe';
 import { UserService } from 'src/service/user.service';
 import { ValidationUser } from './dto-validation/user.validation.dto';
 import { ERelation, UserDto } from './dto/user.dto';
@@ -24,6 +24,7 @@ class findAllQuery {
   maxResults: number = 11;
 }
 
+@ApiTags('user')
 @Controller('user')
 export class UserController {
   constructor(private readonly userService: UserService) {}
@@ -45,20 +46,23 @@ export class UserController {
 
   //description: 'リクエストデータ数(Min:1 , Max:100 , default:10)',
   @Get()
-  @ApiQuery({ name: 'part', description: '表示するパーツを増やす', type: [String], enum: ERelation, isArray: true, required: true })
+  @ApiQuery({ name: 'id', required: false , type:String })
+  @ApiQuery({ name: 'part', description: '表示するパーツを増やすv', type: [String], enum: ERelation, isArray: true, required: true })
   @ApiQuery({ name: 'searchKana', example: 'タナカ', description: '名前のカナ検索', required: false })
   @ApiQuery({
     name: 'maxResults',
     required: false,
-    type: Number,
     schema: { minimum: 1, maximum: 100, exclusiveMaximum: true, exclusiveMinimum: true, default: 10 },
   })
   async findAll(
+    @Query('id' , ParseIntPipe) id: number,
     @Query('part', new ParseArrayEnumPipe(ERelation, { optional: true, separator: ',' })) part: ERelation[],
     @Query('searchKana') searchKana: string | undefined,
-    @Query('maxResults', new ParseIntBetweenPipe(10, 1, 100)) maxResults: number,
-  ): Promise<UserDto[]> {
-    return await this.userService.find(part, searchKana, maxResults);
+    @Query('maxResults', new ParseBetweenNumberPipe(30, 1, 100)) maxResults: number,
+    // ): Promise<UserDto[]> {
+  ): Promise<any> {
+    return { id, part, searchKana, maxResults };
+    // return await this.userService.find(part, searchKana, maxResults);
   }
 
   @Get(':id')

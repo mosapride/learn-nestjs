@@ -1,38 +1,12 @@
-import { Body, Controller, Get, Param, ParseIntPipe, Post } from '@nestjs/common';
-import { ApiBody, ApiOperation, ApiProperty, ApiPropertyOptional, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { Type } from 'class-transformer';
-import { IsArray, IsEnum, IsInt, IsOptional, Max, MaxLength, Min, ValidateNested } from 'class-validator';
-
-enum EPart {
-  name = 'name',
-  kana = 'kana',
-  kanaAsc = 'kanaAsc',
-}
-
-// https://docs.nestjs.com/openapi/decorators
-
-class ReqUser {
-  @ApiProperty({ enum: Object.values(EPart), type: 'string', isArray: true, required: true })
-  @IsEnum(EPart, { each: true })
-  part: EPart[];
-  @ApiProperty({ example: 'タナカ', required: false })
-  @IsOptional()
-  @MaxLength(10)
-  searchKana: string;
-  @ApiPropertyOptional({ example: 10, required: false })
-  @IsOptional()
-  @Type(() => Number)
-  @IsInt()
-  @Max(100)
-  @Min(1)
-  maxResults: number = 11;
-}
+import { Controller, Get, Param, ParseIntPipe } from '@nestjs/common';
+import { ApiOperation, ApiTags } from '@nestjs/swagger';
 
 @ApiTags('sample-request')
 @Controller('sample-request')
-export class SampleRequestController {
+export class SampleRequestParamController {
   constructor() {}
 
+  /// ---- @Paramパラメータ ----
   @ApiOperation({
     summary: '@Param()では全てのデータを取得できる',
     description: `@Param()では全てのデータを取得できるが、any型となるため、property名に気をつけないといけない。またSwagger UPから入力パラメータが指定することができない。`,
@@ -76,16 +50,5 @@ export class SampleRequestController {
   @Get('param-pattern-validate/:id/hoge/:data')
   async param4(@Param('id', ParseIntPipe) id: number, @Param('data') data: string): Promise<string> {
     return `id = ${id}, data = ${data}`;
-  }
-
-  @ApiOperation({
-    summary: 'class-validatorを使って安全性を高める',
-    description: `@Bodyと@ApiBodyを使って、クラスをバリデーションする。`,
-  })
-  @Post('param-body')
-  @ApiBody({ type: ReqUser })
-  @ApiResponse({ type: ReqUser })
-  async paramPost1(@Body() body: ReqUser): Promise<ReqUser> {
-    return body;
   }
 }

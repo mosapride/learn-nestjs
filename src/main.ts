@@ -17,7 +17,6 @@ async function bootstrap() {
       .setDescription('learn nestjs API description')
       .setVersion('1.0')
       .addTag('learn')
-      .setBasePath('path')
       .addServer('http://localhost:3000')
       .build();
     const options: SwaggerDocumentOptions = {

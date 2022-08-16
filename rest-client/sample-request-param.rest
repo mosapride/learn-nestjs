@@ -1,0 +1,6 @@
+
+
+
+### POST
+
+POST http://localhost:3000/sample-request/query?str_key1=11&str_key2=22&int_key1=33&int_key2=44
