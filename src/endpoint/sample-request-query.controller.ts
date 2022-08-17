@@ -3,6 +3,7 @@ import { ApiQuery, ApiTags } from '@nestjs/swagger';
 import { number, string } from 'joi';
 import { ParseArrayEnumPipe } from 'src/pipe/parse-array-enum.pipe';
 import { ParseArrayNumberPipe } from 'src/pipe/parse-array-number.pipe';
+import { ParseBetweenNumberPipe } from 'src/pipe/parse-between-number.pipe';
 import { ParseNumberPipe } from 'src/pipe/parse-number.pipe';
 import { ParseOptionalStringPipe } from 'src/pipe/parse-optional-string.pipe';
 import { ParseStringPipe } from 'src/pipe/parse-string.pipe';
@@ -11,6 +12,12 @@ enum EnumSample {
   A = 'A',
   b = 'b',
   C = 'C',
+}
+
+enum EnumClass {
+  AAA = 'AAA',
+  BBB = 'BBB',
+  CCC = 'CCC',
 }
 
 @ApiTags('sample-query')
@@ -143,7 +150,7 @@ export class SampleRequestQueryController {
   }
 
   @Get('query10')
-  @ApiQuery({ name: 'key', type: String, isArray: true, required: true })
+  @ApiQuery({ name: 'key', type: Number, isArray: true, required: true })
   async paramQuery10(@Query('key', new ParseArrayNumberPipe({ empty: false })) val: number[]): Promise<any> {
     return {
       val,
@@ -168,6 +175,84 @@ export class SampleRequestQueryController {
   async paramQuery12(
     @Query('key', new DefaultValuePipe(EnumSample.A), new ParseArrayEnumPipe(EnumSample, { optional: false })) val: EnumSample[],
   ): Promise<any> {
+    return {
+      val,
+    };
+  }
+
+  @Get('query13')
+  @ApiQuery({ name: 'key', required: false })
+  async paramQuery13(@Query('key') val: string | undefined): Promise<any> {
+    console.log(val);
+    return {
+      val,
+    };
+  }
+
+  @Get('query14')
+  @ApiQuery({ name: 'key', isArray: true, required: false })
+  async paramQuery14(@Query('key', new DefaultValuePipe([])) val: string[]): Promise<any> {
+    console.log(val);
+    return {
+      val,
+    };
+  }
+
+  @Get('query15')
+  @ApiQuery({ name: 'key', required: false })
+  async paramQuery15(@Query('key', new ParseNumberPipe({ optional: true })) val: number | undefined): Promise<any> {
+    console.log(val);
+    return {
+      val,
+    };
+  }
+
+  @Get('query16')
+  @ApiQuery({ name: 'key', type: Number, isArray: true, required: false })
+  async paramQuery16(@Query('key', new ParseArrayNumberPipe({ empty: true })) val: number[]): Promise<any> {
+    console.log(val);
+    return {
+      val,
+    };
+  }
+
+  @Get('query17')
+  @ApiQuery({ name: 'key', enum: Object.values(EnumClass), required: false })
+  async paramQuery17(@Query('key', new DefaultValuePipe(EnumClass.AAA), new ParseEnumPipe(EnumClass)) val: EnumClass): Promise<any> {
+    console.log(val);
+    return {
+      val,
+    };
+  }
+
+  @Get('query18')
+  @ApiQuery({ name: 'key', type: [String], enum: EnumClass, isArray: true, required: false })
+  async paramQuery18(
+    @Query('key', new DefaultValuePipe([EnumClass.AAA]), new ParseArrayEnumPipe(EnumClass, { optional: false })) val: EnumClass[],
+  ): Promise<any> {
+    console.log(val);
+    return {
+      val,
+    };
+  }
+
+  @Get('query19')
+  @ApiQuery({ name: 'key', type: [String], enum: EnumClass, isArray: true, required: false })
+  async paramQuery19(@Query('key', new ParseArrayEnumPipe(EnumClass, { optional: true })) val: EnumClass[]): Promise<any> {
+    console.log(val);
+    return {
+      val,
+    };
+  }
+
+  @Get('query20')
+  @ApiQuery({
+    name: 'key',
+    required: false,
+    schema: { minimum: 1, maximum: 99, exclusiveMaximum: true, exclusiveMinimum: true, default: 10 },
+  })
+  async paramQuery20(@Query('key', new ParseBetweenNumberPipe(10, 1, 99)) val: number): Promise<any> {
+    console.log(val);
     return {
       val,
     };

@@ -9,6 +9,9 @@ export class ParseNumberPipe implements PipeTransform<string | number | boolean,
 
   transform(value: any, metadata: ArgumentMetadata): number | undefined {
     if (Number.isNaN(value)) {
+      if (this.options.optional) {
+        return undefined;
+      }
       throw new HttpErrorByCode[HttpStatus.BAD_REQUEST](`[${metadata.data}] Validation failed (numeric string is expected)`);
     }
     if (!value && value !== 0) {

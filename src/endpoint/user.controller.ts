@@ -46,7 +46,7 @@ export class UserController {
 
   //description: 'リクエストデータ数(Min:1 , Max:100 , default:10)',
   @Get()
-  @ApiQuery({ name: 'id', required: false , type:String })
+  @ApiQuery({ name: 'id', required: false, type: String })
   @ApiQuery({ name: 'part', description: '表示するパーツを増やすv', type: [String], enum: ERelation, isArray: true, required: true })
   @ApiQuery({ name: 'searchKana', example: 'タナカ', description: '名前のカナ検索', required: false })
   @ApiQuery({
@@ -55,8 +55,8 @@ export class UserController {
     schema: { minimum: 1, maximum: 100, exclusiveMaximum: true, exclusiveMinimum: true, default: 10 },
   })
   async findAll(
-    @Query('id' , ParseIntPipe) id: number,
-    @Query('part', new ParseArrayEnumPipe(ERelation, { optional: true, separator: ',' })) part: ERelation[],
+    @Query('id', ParseIntPipe) id: number,
+    @Query('part', new ParseArrayEnumPipe(ERelation, { optional: true })) part: ERelation[],
     @Query('searchKana') searchKana: string | undefined,
     @Query('maxResults', new ParseBetweenNumberPipe(30, 1, 100)) maxResults: number,
     // ): Promise<UserDto[]> {
@@ -68,7 +68,7 @@ export class UserController {
   @Get(':id')
   async findByID(
     @Param('id') id: number,
-    @Query('part', new ParseArrayEnumPipe(ERelation, { optional: true, separator: ',' })) part: ERelation[],
+    @Query('part', new ParseArrayEnumPipe(ERelation, { optional: true })) part: ERelation[],
   ): Promise<UserDto | {}> {
     return this.userService.findOne(id, part);
   }
