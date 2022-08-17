@@ -3,10 +3,8 @@ import { HttpErrorByCode } from '@nestjs/common/utils/http-error-by-code.util';
 
 @Injectable()
 export class ParseArrayEnumPipe<T = any> implements PipeTransform<T> {
-  constructor(
-    protected readonly enumType: T,
-    protected readonly options: { optional?: boolean; separator?: string } = { optional: true, separator: ',' },
-  ) {
+  constructor(protected readonly enumType: T, protected readonly options?: { optional?: boolean }) {
+    options = options || {};
     if (!enumType) {
       throw new Error(`"ParseArrayEnumPipe" requires "enumType" argument specified (to validate input values).`);
     }
@@ -22,7 +20,8 @@ export class ParseArrayEnumPipe<T = any> implements PipeTransform<T> {
 
     let valueArray: string[] = [];
     if (typeof value === 'string') {
-      valueArray = value.split(this.options.separator);
+      const separator = new RegExp(`,| `, 'g');
+      valueArray = value.split(separator);
     } else if (Array.isArray(value)) {
       valueArray = value;
     } else {
