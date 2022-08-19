@@ -7,7 +7,7 @@ import { GameController } from './endpoint/game.controller';
 import { HasGameController } from './endpoint/has-game.controller';
 import { SampleRequestBodyController } from './endpoint/sample-request-body.controller';
 import { SampleRequestParamController } from './endpoint/sample-request-param.controller';
-import { SampleRequestQueryController } from './endpoint/sample-request-query.controller';
+import { SampleRequestQueryPipeController } from './endpoint/sample-request-query-pipe.controller';
 import { UserController } from './endpoint/user.controller';
 import { AddressService } from './service/address.service';
 import { TypeOrmConfig } from './service/app-config/typeorm-config.service';
@@ -33,7 +33,7 @@ import { UserEntity } from './typeorm/entity/user.entity';
     AddressController,
     HasGameController,
     SampleRequestParamController,
-    SampleRequestQueryController,
+    SampleRequestQueryPipeController,
     SampleRequestBodyController,
   ],
   providers: [AppService, UserService, GameService, AddressService, HasGameService],

@@ -1,4 +1,4 @@
-import { Controller, DefaultValuePipe, Get, ParseArrayPipe, ParseEnumPipe, ParseIntPipe, Query } from '@nestjs/common';
+import { Controller, DefaultValuePipe, Get, ParseArrayPipe, ParseBoolPipe, ParseEnumPipe, ParseIntPipe, Query } from '@nestjs/common';
 import { ApiQuery, ApiTags } from '@nestjs/swagger';
 import { number, string } from 'joi';
 import { ParseArrayEnumPipe } from 'src/pipe/parse-array-enum.pipe';
@@ -22,7 +22,7 @@ enum EnumClass {
 
 @ApiTags('sample-query')
 @Controller('sample-query')
-export class SampleRequestQueryController {
+export class SampleRequestQueryPipeController {
   constructor() {}
   /// ---- @Queryパラメータ ----
 
@@ -110,16 +110,32 @@ export class SampleRequestQueryController {
   }
 
   @Get('query5')
-  @ApiQuery({ name: 'key', required: false })
+  @ApiQuery({ name: 'key', required: true })
   async paramQuery5(@Query('key', ParseStringPipe) val: string): Promise<any> {
     return {
       val,
     };
   }
 
+  @Get('query25')
+  @ApiQuery({ name: 'key' })
+  async paramQuery25(@Query('key', ParseStringPipe) val: string): Promise<any> {
+    return {
+      val,
+    };
+  }
+
   @Get('query6')
-  @ApiQuery({ name: 'key', isArray: true, required: false })
+  @ApiQuery({ name: 'key', isArray: true, required: true })
   async paramQuery6(@Query('key', ParseStringPipe, ParseArrayPipe) val: string[]): Promise<any> {
+    return {
+      val,
+    };
+  }
+
+  @Get('query26')
+  @ApiQuery({ name: 'key', required: true })
+  async paramQuery26(@Query('key', ParseStringPipe, ParseArrayPipe) val: string[]): Promise<any> {
     return {
       val,
     };
@@ -133,9 +149,25 @@ export class SampleRequestQueryController {
     };
   }
 
+  @Get('query27')
+  @ApiQuery({ name: 'key', enum: EnumSample, required: false })
+  async paramQuery27(@Query('key', new ParseEnumPipe(EnumSample)) val: EnumSample): Promise<any> {
+    return {
+      val,
+    };
+  }
+
   @Get('query8')
   @ApiQuery({ name: 'key', type: [String], enum: EnumSample, isArray: true, required: false })
   async paramQuery8(@Query('key', new ParseArrayEnumPipe(EnumSample, { optional: false })) val: EnumSample[]): Promise<any> {
+    return {
+      val,
+    };
+  }
+
+  @Get('query28')
+  @ApiQuery({ name: 'key', enum: EnumSample, isArray: true, required: false })
+  async paramQuery28(@Query('key', new ParseArrayEnumPipe(EnumSample, { optional: false })) val: EnumSample[]): Promise<any> {
     return {
       val,
     };
@@ -253,6 +285,14 @@ export class SampleRequestQueryController {
   })
   async paramQuery20(@Query('key', new ParseBetweenNumberPipe(10, 1, 99)) val: number): Promise<any> {
     console.log(val);
+    return {
+      val,
+    };
+  }
+
+  @Get('query21')
+  @ApiQuery({ name: 'key',required: false })
+  async paramQuery21(@Query('key', ParseBoolPipe) val: boolean): Promise<any> {
     return {
       val,
     };
