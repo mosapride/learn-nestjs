@@ -97,7 +97,7 @@ export class ReqSampleValidatorOptional {
 
   /**
    * 省略可能
-   * string
+   * string[]
    */
   @ApiPropertyOptional()
   @IsArray()
