@@ -7,6 +7,7 @@ import { GameController } from './endpoint/game.controller';
 import { HasGameController } from './endpoint/has-game.controller';
 import { SampleRequestBodyController } from './endpoint/sample-request-body.controller';
 import { SampleRequestParamController } from './endpoint/sample-request-param.controller';
+import { SampleRequestQueryClassValidatorController } from './endpoint/sample-request-query-class-validator.controller';
 import { SampleRequestQueryPipeController } from './endpoint/sample-request-query-pipe.controller';
 import { UserController } from './endpoint/user.controller';
 import { AddressService } from './service/address.service';
@@ -34,6 +35,7 @@ import { UserEntity } from './typeorm/entity/user.entity';
     HasGameController,
     SampleRequestParamController,
     SampleRequestQueryPipeController,
+    SampleRequestQueryClassValidatorController,
     SampleRequestBodyController,
   ],
   providers: [AppService, UserService, GameService, AddressService, HasGameService],
