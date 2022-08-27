@@ -1,6 +1,6 @@
 import { Body, Controller, Post } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
-import { ReqUser } from './dto/query-param.dto';
+import { SampleBody } from './sample-request-body.dto';
 
 @ApiTags('sample-body')
 @Controller('sample-body')
@@ -12,7 +12,7 @@ export class SampleRequestBodyController {
     description: `@Bodyと@ApiBodyを使って、クラスをバリデーションする。`,
   })
   @Post('body1')
-  async body1(@Body() body: ReqUser): Promise<ReqUser> {
+  async body1(@Body() body: SampleBody): Promise<SampleBody> {
     return body;
   }
 }
