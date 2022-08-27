@@ -1,6 +1,6 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
-import { IsEnum, IsISO8601, IsNotEmpty, IsOptional, MaxLength, MinLength, ValidateIf, ValidateNested } from 'class-validator';
+import { IsEnum, IsISO8601, IsNotEmpty, IsOptional, Max, MaxLength, MinLength, ValidateIf, ValidateNested } from 'class-validator';
 
 export enum EnumClass {
   AAA = 'AAA',
@@ -39,22 +39,40 @@ export class SampleBody {
   key2: string[];
 
   /**
+   * number型
+   */
+  @ApiProperty()
+  @IsNotEmpty()
+  @Max(10)
+  key3: number;
+
+  /**
+   * stringの文字列の配列
+   */
+  @ApiProperty()
+  @IsNotEmpty()
+  @Max(10, {
+    each: true,
+  })
+  key4: number[];
+
+  /**
    * ISO8601形式の日付
    */
   @ApiProperty({ example: '2022-08-23T14:47:32.899Z' })
   @IsNotEmpty()
   @IsISO8601()
-  key3: string;
+  key5: string;
 
   @ApiPropertyOptional({ enum: Object.values(EnumClass) })
   @IsOptional()
   @IsEnum(EnumClass)
-  key4?: EnumClass;
+  key6?: EnumClass;
 
   @ApiPropertyOptional({ enum: Object.values(EnumClass) })
   @IsOptional()
   @IsEnum(EnumClass, { each: true })
-  key5?: EnumClass[] = [];
+  key7?: EnumClass[] = [];
 
   @ApiProperty()
   @IsNotEmpty()
